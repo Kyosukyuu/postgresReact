@@ -1,9 +1,14 @@
 require("dotenv").config();
 
-const app = require("express")();
+const cors = require("cors");
+const express = require("express");
+const app = express();
+app.use(express.json());
+app.use(cors());
+
 const PORT = process.env.PORT || 1337;
 
-const { Sequelize } = require("sequelize");
+const Sequelize = require("sequelize");
 
 const { DB_NAME, DB_USER, DB_PW } = process.env;
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PW, {
@@ -11,8 +16,17 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PW, {
   dialect: "postgres",
 });
 
+const models = {
+  Character: require("./models/Character")(sequelize, Sequelize),
+};
+
+// TEST DB CONNECTION
 require("./testDB")(sequelize);
 
-app.listen(PORT, () => {
-  console.log("Listening on port", PORT);
+// call sync() to create tables from models if they don't exist yet.
+sequelize.sync().then(() => {
+  app.listen(PORT, (err) => {
+    if (err) console.log(err);
+    console.log("Listening on PORT", PORT);
+  });
 });
