@@ -1,9 +1,22 @@
+const { sequelize } = require("./database");
 const models = require("./models/models");
 
 const getAllChars = async () => {
-  const allCharacters = await models.Character.findAll({ raw: true });
+  const allCharacters = await models.Character.findAll({
+    order: [["name", "ASC"]],
+    raw: true,
+  });
   // console.log(allCharacters);
   return allCharacters;
+};
+
+const getChars = async (chars) => {
+  const currentChars = await models.Character.findAll({
+    where: { name: chars },
+    order: [["name", "ASC"]],
+    raw: true,
+  });
+  return currentChars;
 };
 
 const getChar = async (charName) => {
@@ -15,4 +28,4 @@ const getChar = async (charName) => {
   return currentChar;
 };
 
-module.exports = { getAllChars, getChar };
+module.exports = { getAllChars, getChar, getChars };
