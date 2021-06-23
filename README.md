@@ -1,6 +1,6 @@
 # postgresReact
 
-A simple website using React and acessing a local Postgresql database via Express routes
+A simple repository that uses React and acesses a local Postgresql database via Express routes
 
 ## Before starting, make sure an .env file is created with the following variables inside:
 

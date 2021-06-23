@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import CardList from "./components/CardList";
+import { ChakraProvider, Box, Heading } from "@chakra-ui/react";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Box as="main" bg="gray.200">
+        <Box bg="blue.300" mb={6} py={4} as="header">
+          <Heading>Genshin Impact</Heading>
+        </Box>
+        <CardList />
+      </Box>
+    </ChakraProvider>
   );
-}
+};
 
 export default App;
